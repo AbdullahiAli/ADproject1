@@ -10,7 +10,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		try {
-			System.setIn(new FileInputStream(new File("extra_4.in")));
+			System.setIn(new FileInputStream(new File("extra_3.in")));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

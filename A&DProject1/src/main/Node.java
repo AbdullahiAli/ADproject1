@@ -2,7 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
-public class Node {
+public class Node implements Comparable {
 
 	private int name, nrOfNeighbours;
 	private ArrayList<Node> neighbours;
@@ -53,6 +53,11 @@ public class Node {
 
 	public void removeBin() {
 		hasBin = false;
+	}
+
+	@Override
+	public int compareTo(Object arg0) {
+		return 0;
 	}
 
 }

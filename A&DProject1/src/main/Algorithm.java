@@ -1,5 +1,6 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -41,14 +42,44 @@ public class Algorithm {
 	}
 
 	private void removeBins() {
-		for (int i = 0; i < graph.getNrOfIntersections(); i++)
+		for (int i = 1; i <= graph.getNrOfIntersections(); i++)
 			if (graph.getNode(i).hasBin())
 				graph.getNode(i).removeBin();
 	}
 
 	private void search() {
-		removeBins();
+		boolean succes = false;
+		int count = 1;
+		while (count <= graph.getNrOfIntersections() && !succes) {
+			removeBins();
+			Node node = graph.getNode(count);
+			succes = breathFirstSearch(node);
+			count++;
+		}
+		if (succes)
+			System.out.println("possible");
+		else
+			System.out.println("impossible");
+	}
 
+	private boolean breathFirstSearch(Node root) {
+		root.placeBin();
+		PriorityQueue<Node> queue = new PriorityQueue<Node>();
+		ArrayList<Node> seen = new ArrayList<Node>();
+		queue.add(root);
+		seen.add(root);
+		while (!queue.isEmpty()) {
+			Node current = queue.remove();
+			for (Node neighbour : current.getNeighbours()) {
+				if (neighbour.canPlaceBin())
+					neighbour.placeBin();
+				if (!seen.contains(neighbour)) {
+					queue.add(neighbour);
+					seen.add(neighbour);
+				}
+			}
+		}
+		return (graph.nrOfBinsPlaced() >= graph.getNrOfBins());
 	}
 
 	public void initQueue() {

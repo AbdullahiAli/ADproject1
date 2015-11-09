@@ -49,4 +49,12 @@ public class Graph {
 		return null;
 	}
 
+	public int nrOfBinsPlaced() {
+		int placed = 0;
+		for (Node node : nodes)
+			if (node.hasBin())
+				placed++;
+		return placed;
+	}
+
 }
